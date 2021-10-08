@@ -1,0 +1,147 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: settings
+data:
+  settings.json: |
+    {
+        "public":{
+            "chainName": "archway",
+            "chainId": "titus",
+            "gtm": "notsure",
+            "slashingWindow": 10000,
+            "uptimeWindow": 250,
+            "initialPageSize": 30,
+            "secp256k1": false,
+            "bech32PrefixAccAddr": "archway",
+            "bech32PrefixAccPub": "archwaypub",
+            "bech32PrefixValAddr": "archwayvaloper",
+            "bech32PrefixValPub": "archwayvaloperpub",
+            "bech32PrefixConsAddr": "archwayvalcons",
+            "bech32PrefixConsPub": "archwayvalconspub",
+            "bondDenom": "notsure",
+            "powerReduction": 1000000,
+            "coins": [
+                {
+                    "denom": "uatom",
+                    "displayName": "ATOM",
+                    "fraction": 1000000
+                },
+                {
+                    "denom": "umuon",
+                    "displayName": "MUON",
+                    "fraction": 1000000
+                }
+            ],
+            "ledger":{
+                "coinType": 118,
+                "appName": "Cosmos",
+                "appVersion": "2.16.0",
+                "gasPrice": 0.02
+            },
+            "modules": {
+                "bank": true,
+                "supply": true,
+                "minting": true,
+                "gov": true,
+                "distribution": true
+            },
+            "coingeckoId": "cosmos",
+            "networks": "https://gist.githubusercontent.com/kwunyeung/8be4598c77c61e497dfc7220a678b3ee/raw/bd-networks.json",
+            "banners": false
+        },
+        "remote":{
+            "rpc":"https://rpc.stargate.forbole.com:443",
+            "api":"https://api.stargate.forbole.com:443"
+        },
+        "debug": {
+            "startTimer": true
+        },
+        "params":{
+            "startHeight": 0,
+            "defaultBlockTime": 5000,
+            "validatorUpdateWindow": 300,
+            "blockInterval": 15000,
+            "transactionsInterval": 18000,
+            "keybaseFetchingInterval": 18000000,
+            "consensusInterval": 1000,
+            "statusInterval":7500,
+            "signingInfoInterval": 1800000,
+            "proposalInterval": 5000,
+            "missedBlocksInterval": 60000,
+            "delegationInterval": 900000
+        }
+    }
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bigdipper
+  labels:
+    app: bigdipper
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: bigdipper
+      labels:
+        app: bigdipper
+    spec:
+      containers:
+        - name: bigdipper
+          image: bigdipperimage # edit me with the docker image
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ROOT_URL
+              value: APP_URL
+            - name: MONGO_URL
+              value: mongodb://mongo:27017/meteor
+            - name: PORT
+              value: "3000"
+            - name: METEOR_SETTINGS
+              valueFrom:
+                configMapKeyRef:
+                  key: settings.json
+                  name: settings
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: bigdipper
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo
+  labels:
+    app: mongo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: mongo
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - --storageEngine=wiredTiger
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: mongo
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+spec:
+  selector:
+    app: mongo
+  ports:
+    - port: 27017
+  type: ClusterIP
