@@ -7,7 +7,7 @@ data:
     {
         "public":{
             "chainName": "archway",
-            "chainId": "titus",
+            "chainId": "constantine-1",
             "gtm": "notsure",
             "slashingWindow": 10000,
             "uptimeWindow": 250,
@@ -19,17 +19,12 @@ data:
             "bech32PrefixValPub": "archwayvaloperpub",
             "bech32PrefixConsAddr": "archwayvalcons",
             "bech32PrefixConsPub": "archwayvalconspub",
-            "bondDenom": "notsure",
+            "bondDenom": "const",
             "powerReduction": 1000000,
             "coins": [
                 {
-                    "denom": "uatom",
-                    "displayName": "ATOM",
-                    "fraction": 1000000
-                },
-                {
-                    "denom": "umuon",
-                    "displayName": "MUON",
+                    "denom": "const",
+                    "displayName": "const",
                     "fraction": 1000000
                 }
             ],
@@ -51,8 +46,8 @@ data:
             "banners": false
         },
         "remote":{
-            "rpc":"https://rpc.stargate.forbole.com:443",
-            "api":"https://api.stargate.forbole.com:443"
+            "rpc":"https://rpc.constantine-1.archway.tech:443",
+            "api":"https://api.constantine-1.archway.tech:443"
         },
         "debug": {
             "startTimer": true
@@ -108,6 +103,17 @@ spec:
   selector:
     matchLabels:
       app: bigdipper
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bigdipper
+spec:
+  selector:
+    app: bigdipper
+  ports:
+    - port: 3000
+  type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: Deployment
