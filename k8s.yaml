@@ -8,7 +8,6 @@ data:
         "public":{
             "chainName": "archway",
             "chainId": "constantine-1",
-            "gtm": "notsure",
             "slashingWindow": 10000,
             "uptimeWindow": 250,
             "initialPageSize": 30,
@@ -29,9 +28,9 @@ data:
                 }
             ],
             "ledger":{
-                "coinType": 118,
-                "appName": "Cosmos",
-                "appVersion": "2.16.0",
+                "coinType": 0,
+                "appName": "archway",
+                "appVersion": "undefined",
                 "gasPrice": 0.02
             },
             "modules": {
@@ -85,11 +84,11 @@ spec:
     spec:
       containers:
         - name: bigdipper
-          image: bigdipperimage # edit me with the docker image
+          image: drewstaylor/bigdipper # edit me with the docker image
           imagePullPolicy: IfNotPresent
           env:
             - name: ROOT_URL
-              value: APP_URL
+              value: https://rpc.constantine-1.archway.tech
             - name: MONGO_URL
               value: mongodb://mongo:27017/meteor
             - name: PORT
@@ -133,8 +132,6 @@ spec:
         - name: mongo
           image: mongo:latest
           imagePullPolicy: IfNotPresent
-          command:
-            - --storageEngine=wiredTiger
       restartPolicy: Always
   selector:
     matchLabels:
