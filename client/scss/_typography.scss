@@ -1,0 +1,17 @@
+@import './fonts.scss';
+
+.hero-1, .hero-2 {
+  font-family: 'FreightTextProBook-Italic', serif;
+  font-feature-settings: 'zero' on;
+}
+
+.hero-1 {
+  font-size: 38px;
+  line-height: 47px;
+}
+
+.hero-2 {
+  font-size: 67px;
+  line-height: 111.4%;
+}
+

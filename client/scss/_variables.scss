@@ -1,0 +1,39 @@
+$orange: #f05a27;
+$dark-orange: #ab3a1a;
+$green: #01635F;
+$white: #ffffff;
+$gray: #eae5e1;
+$gray-light: #DFDAD2;
+$gray-dark: #5e5c5a;
+$black: #1a1818;
+
+$primary: $orange !default;
+$body-color: $black !default;
+$link-color: $black !default;
+$link-hover-color: $orange !default;
+$danger: $dark-orange !default;
+
+$navbar-padding-y: 0;
+$navbar-padding-x: 0;
+
+$spacer: 1rem !default;
+$spacers: (
+    0: 0,
+    1: ($spacer * .25),
+    2: ($spacer * .5),
+    3: ($spacer * .75),
+    4: ($spacer * 1),
+    5: ($spacer * 1.25),
+    6: ($spacer * 1.5),
+    7: ($spacer * 1.75),
+    8: ($spacer * 2),
+    9: ($spacer * 2.25),
+    10: ($spacer * 2.5),
+    11: ($spacer * 2.75),
+    12: ($spacer * 3)
+);
+
+$font-family-sans-serif: Helvetica, Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif !default;
+$font-size-base: .8125rem !default;
+$font-weight-base: 400 !default;
+

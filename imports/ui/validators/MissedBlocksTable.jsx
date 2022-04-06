@@ -1,10 +1,8 @@
+import i18n from 'meteor/universe:i18n';
+import numbro from 'numbro';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { CardBody, Card, Table, Spinner, Input } from 'reactstrap';
-import { Meteor } from 'meteor/meteor';
-import numbro from 'numbro';
-import i18n from 'meteor/universe:i18n';
-import PChart from '../components/Chart.jsx';
+import { Card, CardBody, Input, Table } from 'reactstrap';
 import Account from '../components/Account.jsx';
 import { InfoIcon } from '../components/Icons.jsx';
 import TimeStamp from '../components/TimeStamp.jsx';

@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-import { Table, Spinner } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import { DenomSymbol, ProposalStatusIcon } from '../components/Icons.jsx';
-import numbro from 'numbro';
 import i18n from 'meteor/universe:i18n';
-import Coin from '/both/utils/coins.js'
-import TimeStamp from '../components/TimeStamp.jsx';
-// import { SubmitProposalButton } from '../ledger/LedgerActions.jsx';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Spinner, Table } from 'reactstrap';
 import voca from 'voca';
+import { ProposalStatusIcon } from '../components/Icons.jsx';
+import TimeStamp from '../components/TimeStamp.jsx';
+import Coin from '/both/utils/coins.js';
 
 const T = i18n.createComponent();
 
@@ -69,17 +67,16 @@ export default class List extends Component{
         }
         else{
             return (
-                <div>
-                    {/* {this.state.user?<SubmitProposalButton history={this.props.history}/>:null} */}
-                    <Table striped className="proposal-list">
+                <div className="border">
+                    <Table className="proposal-list">
                         <thead>
                             <tr>
-                                <th className="d-none d-sm-table-cell counter"><i className="fas fa-hashtag"></i> <T>proposals.proposalID</T></th>
-                                <th className="title"><i className="material-icons">view_headline</i> <span className="d-none d-sm-inline"><T>proposals.title</T></span></th>
-                                <th className="status"><i className="fas fa-toggle-on"></i> <span className="d-none d-sm-inline"><T>proposals.status</T></span></th>
-                                <th className="submit-block"><i className="fas fa-box"></i> <span className="d-none d-sm-inline"><T>proposals.submitTime</T> (UTC)</span></th>
-                                <th className="voting-start"><i className="fas fa-box-open"></i> <span className="d-none d-sm-inline"><T>proposals.votingStartTime</T> (UTC)</span></th>
-                                <th className="deposit text-right"><i className="material-icons">attach_money</i> <span className="d-none d-sm-inline"><T>proposals.totalDeposit</T></span></th>
+                                <th className="d-none d-sm-table-cell counter"><T>proposals.proposalID</T></th>
+                                <th className="title"><span className="d-none d-sm-inline"><T>proposals.title</T></span></th>
+                                <th className="status"><span className="d-none d-sm-inline"><T>proposals.status</T></span></th>
+                                <th className="submit-block"><span className="d-none d-sm-inline"><T>proposals.submitTime</T> (UTC)</span></th>
+                                <th className="voting-start"><span className="d-none d-sm-inline"><T>proposals.votingStartTime</T> (UTC)</span></th>
+                                <th className="deposit text-right"><span className="d-none d-sm-inline"><T>proposals.totalDeposit</T></span></th>
                             </tr>
                         </thead>
                         <tbody>{this.state.proposals}</tbody>

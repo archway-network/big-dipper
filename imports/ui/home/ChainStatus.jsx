@@ -153,19 +153,19 @@ export default class ChainStatus extends React.Component {
             if (this.props.statusExist && this.props.status.prevotes){
                 return(
                     <Row className="status text-center">
-                        <Col lg={3} md={6}>
-                            <Card body>
-                                <CardTitle><T>chainStatus.latestHeight</T></CardTitle>
+                        <Col lg={6} md={12}>
+                            <Card className="bg-orange text-white" body>
+                                <CardTitle className="font-weight-bold"><T>chainStatus.latestHeight</T></CardTitle>
                                 <CardText>
-                                    <span className="display-4 value text-primary">{this.state.blockHeight}</span>
-                                    {this.state.blockTime}
+                                    <div className="hero-2">{this.state.blockHeight}</div>
+                                    <div className="text-white/60">{this.state.blockTime}</div>
                                 </CardText>
                             </Card>
                         </Col>
-                        <Col lg={3} md={6}>
+                        {/* <Col lg={3} md={6}>
                             <Card body>
                                 <UncontrolledDropdown size="sm" className="more">
-                                    <DropdownToggle>
+                                    <DropdownToggle className="position-absolute top-0 right-0 mt-n4 mr-n5" color="transparent">
                                         <i className="material-icons">more_vert</i>
                                     </DropdownToggle>
                                     <DropdownMenu>
@@ -175,23 +175,27 @@ export default class ChainStatus extends React.Component {
                                         {this.props.status.lastDayBlockTime?<DropdownItem onClick={(e) => this.handleSwitchBlockTime("d", e)}><T>chainStatus.lastDay</T> </DropdownItem>:''}
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
-                                <CardTitle><T>chainStatus.averageBlockTime</T> ({this.state.blockTimeText})</CardTitle>
+                                <CardTitle className="font-weight-bold"><T>chainStatus.averageBlockTime</T> ({this.state.blockTimeText})</CardTitle>
                                 <CardText>
-                                    <span className="display-4 value text-primary">{this.state.averageBlockTime}</span><T>chainStatus.seconds</T>
+                                    <div className="hero-2">{this.state.averageBlockTime}</div>
+                                    <div className="text-black/60"><T>chainStatus.seconds</T></div>
+                                </CardText>
+                            </Card>
+                        </Col> */}
+                        <Col lg={3} md={6}>
+                            <Card className="bg-green text-white" body>
+                                <CardTitle className="font-weight-bold"><T>chainStatus.activeValidators</T></CardTitle>
+                                <CardText>
+                                    <div className="hero-2">{this.state.numValidators}</div>
+                                    <div className="text-white/60"><T totalValidators={this.state.totalNumValidators}>chainStatus.outOfValidators</T></div>
                                 </CardText>
                             </Card>
                         </Col>
                         <Col lg={3} md={6}>
-                            <Card body>
-                                <CardTitle><T>chainStatus.activeValidators</T></CardTitle>
-                                <CardText><span className="display-4 value text-primary">{this.state.numValidators}</span><T totalValidators={this.state.totalNumValidators}>chainStatus.outOfValidators</T></CardText>
-                            </Card>
-                        </Col>
-                        <Col lg={3} md={6}>
-                            <Card body>
+                            <Card className="bg-green text-white" body>
                                 <UncontrolledDropdown size="sm" className="more">
-                                    <DropdownToggle>
-                                        <i className="material-icons">more_vert</i>
+                                    <DropdownToggle className="position-absolute top-0 right-0 mt-n4 mr-n5" color="transparent">
+                                        <i className="material-icons text-white">more_vert</i>
                                     </DropdownToggle>
                                     <DropdownMenu>
                                         <DropdownItem onClick={(e) => this.handleSwitchVotingPower("", e)}><T>chainStatus.now</T></DropdownItem>
@@ -199,8 +203,11 @@ export default class ChainStatus extends React.Component {
                                         {this.props.status.lastDayVotingPower?<DropdownItem onClick={(e) => this.handleSwitchVotingPower("d", e)}><T>chainStatus.lastDay</T></DropdownItem>:''}
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
-                                <CardTitle><T>chainStatus.onlineVotingPower</T> ({this.state.votingPowerText})</CardTitle>
-                                <CardText><span className="display-4 value text-primary">{this.state.votingPower}</span><T percent={numbro(this.state.bondedTokens/this.state.totalSupply).format("0.00%")} totalStakes={numbro(this.state.totalSupply/Coin.StakingCoin.fraction).format("0.00a")} denom={Coin.StakingCoin.displayName} denomPlural={Coin.StakingCoin.displayNamePlural}>chainStatus.fromTotalStakes</T></CardText>
+                                <CardTitle className="font-weight-bold"><T>chainStatus.onlineVotingPower</T> ({this.state.votingPowerText})</CardTitle>
+                                <CardText>
+                                    <div className="hero-2">{this.state.votingPower}</div>
+                                    <div className="text-white/60"><T percent={numbro(this.state.bondedTokens/this.state.totalSupply).format("0.00%")} totalStakes={numbro(this.state.totalSupply/Coin.StakingCoin.fraction).format("0.00a")} denom={Coin.StakingCoin.displayName} denomPlural={Coin.StakingCoin.displayNamePlural}>chainStatus.fromTotalStakes</T></div>
+                                </CardText>
                             </Card>
                         </Col>
                     </Row>

@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import { Spinner, UncontrolledTooltip, Row, Col, Card, CardHeader, CardBody, Progress, UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
+import i18n from 'meteor/universe:i18n';
 import numbro from 'numbro';
+import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
+import { Card, CardBody, CardHeader, Col, DropdownItem, DropdownMenu, DropdownToggle, Progress, Row, Spinner, UncontrolledDropdown } from 'reactstrap';
+import PageHeader from '../components/PageHeader.jsx';
 import AccountCopy from '../components/AccountCopy.jsx';
 import LinkIcon from '../components/LinkIcon.jsx';
+import AccountTransactions from '../components/TransactionsContainer.js';
+import { TransferButton, WithdrawButton } from '../ledger/LedgerActions.jsx';
 import Delegations from './Delegations.jsx';
 import Unbondings from './Unbondings.jsx';
-import AccountTransactions from '../components/TransactionsContainer.js';
-import ChainStates from '../components/ChainStatesContainer.js'
-import { Helmet } from 'react-helmet';
-import { WithdrawButton, TransferButton } from '../ledger/LedgerActions.jsx';
-import i18n from 'meteor/universe:i18n';
-import Coin from '/both/utils/coins.js'
+import Coin from '/both/utils/coins.js';
+import TransactionsCard from '../transactions/TransactionsCard.jsx';
 
 const T = i18n.createComponent();
 
@@ -273,7 +274,7 @@ export default class AccountDetails extends Component{
           
         if (this.state.loading){
             return <div id="account">
-                <h1 className="d-none d-lg-block"><T>accounts.accountDetails</T></h1>
+                <PageHeader pageTitle={<T>accounts.accountDetails</T>} />
                 <Spinner type="grow" color="primary" />
             </div>
         }
@@ -283,13 +284,7 @@ export default class AccountDetails extends Component{
                     <title>Account Details of {this.state.address} on {Meteor.settings.public.chainName} | Big Dipper</title>
                     <meta name="description" content={"Account Details of "+this.state.address+" on {Meteor.settings.public.chainName}"} />
                 </Helmet>
-                <Row>
-                    <Col md={3} xs={12}><h1 className="d-none d-lg-block"><T>accounts.accountDetails</T></h1></Col>
-                    <Col md={9} xs={12} className="text-md-right"><ChainStates denom={this.state.denom} /></Col>
-                </Row>
-                <Row>
-                    <Col><h3 className="text-primary"><AccountCopy address={this.state.address} /></h3></Col>
-                </Row>
+                <PageHeader pageTitle={<T>accounts.accountDetails</T>} />
                 <Row>
                     <Col><Card>
                         <CardHeader>
@@ -297,7 +292,7 @@ export default class AccountDetails extends Component{
                             <div className="shareLink float-right">{this.renderShareLink()}</div>
                             {(this.state.available.length > 1) ? <div className="coin-dropdown float-right"><h5>Select Coin:</h5> {this.renderDropDown()}</div> : null}
                         </CardHeader>
-                        <CardBody><br/> 
+                        <CardBody>
                             <Row className="account-distributions">
                                 <Col xs={12}>
                                     <Progress multi>
@@ -310,36 +305,42 @@ export default class AccountDetails extends Component{
                                 </Col>
                             </Row>
                             <Row>
-                                <Col md={6} lg={8}>
-                                    <Row>
-                                        <Col xs={4} className="label text-nowrap"><div className="available infinity" /><T>accounts.available</T></Col>
-                                        <Col xs={8} className="value text-right">{this.findCoin(this.state.available)}</Col>
+                                <Col>
+                                    <Row className="py-1">
+                                        <Col xs={9} md={2} className="text-nowrap"><div className="available infinity" /><T>accounts.available</T></Col>
+                                        <Col xs={3} className="value text-right">{this.findCoin(this.state.available) || 'N/A'}</Col>
                                     </Row>
-                                    <Row>
-                                        <Col xs={4} className="label text-nowrap"><div className="delegated infinity" /><T>accounts.delegated</T></Col>
-                                        <Col xs={8} className="value text-right">{new Coin(this.state.delegated).toString(6)}</Col>
+                                    <Row className="py-1">
+                                        <Col xs={9} md={2} className="text-nowrap"><div className="delegated infinity" /><T>accounts.delegated</T></Col>
+                                        <Col xs={3} className="value text-right">{new Coin(this.state.delegated).toString(6) || 'N/A'}</Col>
                                     </Row>
-                                    <Row>
-                                        <Col xs={4} className="label text-nowrap"><div className="unbonding infinity" /><T>accounts.unbonding</T></Col>
-                                        <Col xs={8} className="value text-right">{new Coin(this.state.unbonding).toString(6)}</Col>
+                                    <Row className="py-1">
+                                        <Col xs={9} md={2} className="text-nowrap"><div className="unbonding infinity" /><T>accounts.unbonding</T></Col>
+                                        <Col xs={3} className="value text-right">{new Coin(this.state.unbonding).toString(6) || 'N/A'}</Col>
                                     </Row>
-                                    <Row>
-                                        <Col xs={4} className="label text-nowrap"><div className="rewards infinity" /><T>accounts.rewards</T></Col>
-                                        <Col xs={8} className="value text-right">{this.findCoin(this.state.rewards)}</Col>
+                                    <Row className="py-1">
+                                        <Col xs={9} md={2} className="text-nowrap"><div className="rewards infinity" /><T>accounts.rewards</T></Col>
+                                        <Col xs={3} className="value text-right">{this.findCoin(this.state.rewards) || 'N/A'}</Col>
                                     </Row>
-                                    {this.state.commission?<Row>
-                                        <Col xs={4} className="label text-nowrap"><div className="commission infinity" /><T>validators.commission</T></Col>
-                                        <Col xs={8} className="value text-right">{this.findCoin(this.state.commission)}</Col>
-                                    </Row>:null}
+                                    {this.state.commission && (
+                                        <Row className="py-1">
+                                            <Col xs={9} md={2} className="text-nowrap"><div className="commission infinity" /><T>validators.commission</T></Col>
+                                            <Col xs={3} className="value text-right">{this.findCoin(this.state.commission) || 'N/A'}</Col>
+                                        </Row>
+                                    )}
                                 </Col>
-                                <Col md={6} lg={4} className="total d-flex flex-column justify-content-end">
-                                    {this.state.user?<Row>
-                                        <Col xs={12}><TransferButton history={this.props.history} address={this.state.address} denom={this.state.denom}/></Col>
-                                        {this.state.user===this.state.address?<Col xs={12}><WithdrawButton  history={this.props.history} rewards={this.state.rewards} commission={this.state.commission} address={this.state.operatorAddress} denom={this.state.denom}/></Col>:null}
-                                    </Row>:null}
+                            </Row>
+                            <Row className="pt-2">
+                                <Col className="total d-flex flex-column justify-content-end">
+                                    {this.state.user && (
+                                        <Row>
+                                            <Col xs={12}><TransferButton history={this.props.history} address={this.state.address} denom={this.state.denom}/></Col>
+                                            {this.state.user===this.state.address?<Col xs={12}><WithdrawButton  history={this.props.history} rewards={this.state.rewards} commission={this.state.commission} address={this.state.operatorAddress} denom={this.state.denom}/></Col>:null}
+                                        </Row>
+                                    )}
                                     <Row>
-                                        <Col xs={4} className="label d-flex align-self-end"><div className="infinity" /><T>accounts.total</T></Col>
-                                        <Col xs={8} className="value text-right">{this.findCoin(this.state.total)}</Col>
+                                        <Col xs={9} md={2} className="label d-flex align-self-end"><div className="infinity" /><T>accounts.total</T></Col>
+                                        <Col xs={3} className="value text-right">{this.findCoin(this.state.total) || 'N/A'}</Col>
                                         <Col xs={12} className="dollar-value text-right text-secondary">~{numbro((this.findValue(this.state.total))/Coin.StakingCoin.fraction*this.state.price).format("$0,0.0000a")} ({numbro(this.state.price).format("$0,0.00")}/{Coin.StakingCoin.displayName})</Col>
                                     </Row>
                                 </Col>
@@ -348,7 +349,7 @@ export default class AccountDetails extends Component{
                     </Card></Col>
                 </Row>
                 <Row>
-                    <Col md={6}>
+                    <Col lg={6}>
                         <Delegations 
                             address={this.state.address} 
                             delegations={this.state.delegations}
@@ -357,13 +358,15 @@ export default class AccountDetails extends Component{
                             rewardsForEachDel={this.state.rewardsForEachDel}
                         />
                     </Col>
-                    <Col md={6}>
+                    <Col lg={6}>
                         <Unbondings address={this.state.address} unbonding={this.state.unbondingDelegations}/>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <AccountTransactions delegator={this.state.address} denom={this.state.denom} limit={100}/>
+                        <TransactionsCard>
+                            <AccountTransactions delegator={this.state.address} denom={this.state.denom} limit={100}/>
+                        </TransactionsCard>
                     </Col>
                 </Row>
             </div>

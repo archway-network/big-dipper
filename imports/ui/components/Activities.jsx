@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, {Component } from 'react';
 import { MsgType } from './MsgType.jsx';
 import { Link } from 'react-router-dom';

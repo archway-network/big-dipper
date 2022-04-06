@@ -1,32 +1,23 @@
+import { HTTP } from 'meteor/http';
+import i18n from 'meteor/universe:i18n';
 import qs from 'querystring';
-import React,{ Component } from 'react';
-import { HTTP } from 'meteor/http'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
     Badge,
     Button,
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
+    Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem,
+    NavLink, PopoverBody,
     // Input,
     // InputGroup,
     // InputGroupAddon,
     // Button,
     UncontrolledDropdown,
-    UncontrolledPopover,
-    PopoverBody,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem
+    UncontrolledPopover
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import SearchBar from './SearchBar.jsx';
-import i18n from 'meteor/universe:i18n';
 import LedgerModal from '../ledger/LedgerModal.jsx';
-import Account from './Account.jsx';
+import SearchBar from './SearchBar.jsx';
+import NETWORKS from '../networks.json';
 
 const T = i18n.createComponent();
 
@@ -73,35 +64,22 @@ export default class Header extends Component {
     }
 
     componentDidMount(){
-        const url = Meteor.settings.public.networks
-        if (url){
-            try{
-                HTTP.get(url, null, (error, result) => {
-                    if (result.statusCode == 200){
-                        let networks = JSON.parse(result.content);
-                        if (networks.length > 0){
-                            this.setState({
-                                networks: <DropdownMenu>{
-                                    networks.map((network, i) => {
-                                        return <span key={i}>
-                                            <DropdownItem header><img src={network.logo} /> {network.name}</DropdownItem>
-                                            {network.links.map((link, k) => {
-                                                return <DropdownItem key={k} disabled={link.chain_id == Meteor.settings.public.chainId}>
-                                                    <a href={link.url} target="_blank">{link.chain_id} <Badge size="xs" color="secondary">{link.name}</Badge></a>
-                                                </DropdownItem>})}
-                                            {(i < networks.length - 1)?<DropdownItem divider />:''}
-                                        </span>
+        if (NETWORKS.length > 0){
+            this.setState({
+                networks: <DropdownMenu>{
+                    NETWORKS.map((network, i) => {
+                        return <span key={i}>
+                            <DropdownItem className="d-flex align-items-center" header><img src={network.logo} /> <span className="ml-2 font-weight-bold">{network.name}</span></DropdownItem>
+                            {network.links.map((link, k) => {
+                                return <DropdownItem key={k} disabled={link.chain_id == Meteor.settings.public.chainId}>
+                                    <a href={link.url} target="_blank">{link.chain_id} <Badge size="xs" color="secondary">{link.name}</Badge></a>
+                                </DropdownItem>})}
+                            {(i < NETWORKS.length - 1)?<DropdownItem divider />:''}
+                        </span>
 
-                                    })
-                                }</DropdownMenu>
-                            })
-                        }
-                    }
-                })
-            }
-            catch(e){
-                console.warn(e);
-            }
+                    })
+                }</DropdownMenu>
+            })
         }
 
         Meteor.call('getVersion', (error, result) => {
@@ -171,15 +149,20 @@ export default class Header extends Component {
     render() {
         let signedInAddress = getUser();
         return (
-            <Navbar color="primary" dark expand="lg" fixed="top" id="header">
-                <NavbarBrand tag={Link} to="/"><img src="/img/big-dipper-icon-light.svg" className="img-fluid logo"/> <span className="d-none d-xl-inline-block"><T>navbar.siteName</T>&nbsp;</span><Badge color="secondary">{this.state.version}</Badge> </NavbarBrand>
-                <UncontrolledDropdown className="d-inline text-nowrap">
+            <Navbar color="transparent" expand="lg" fixed="top" id="header" light>
+                <NavbarBrand tag={Link} to="/">
+                    <img src="/img/archway-logo.svg" className="logo"/>
+                </NavbarBrand>
+                <h5 className="pl-5 mb-0">
+                    <div className="px-4 py-2 bg-orange text-white text-nowrap rounded-xl">{this.state.version}</div>
+                </h5>
+                <UncontrolledDropdown className="flex-fill d-inline text-nowrap pl-6">
                     <DropdownToggle caret={(this.state.networks !== "")} tag="span" size="sm" id="network-nav">{Meteor.settings.public.chainId}</DropdownToggle>
                     {this.state.networks}
                 </UncontrolledDropdown>
                 <SearchBar id="header-search" history={this.props.history} />
-                <NavbarToggler onClick={this.toggle} />
-                <Collapse isOpen={this.state.isOpen} navbar>
+                <NavbarToggler color="black" onClick={this.toggle} />
+                <Collapse className="mx-n6 px-6" isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto text-nowrap" navbar>
                         <NavItem>
                             <NavLink tag={Link} to="/validators"><T>navbar.validators</T></NavLink>
@@ -197,8 +180,16 @@ export default class Header extends Component {
                             <NavLink tag={Link} to="/voting-power-distribution"><T>navbar.votingPower</T></NavLink>
                         </NavItem>
                         <NavItem id="user-acconut-icon">
-                            {!signedInAddress?<Button className="sign-in-btn" color="link" size="lg" onClick={() => {this.setState({isSignInOpen: true})}}><i className="material-icons">vpn_key</i></Button>:
-                                <span>
+                            {!signedInAddress?
+                                (
+                                    <Button className="mt-1" color="link" size="lg" onClick={() => {this.setState({isSignInOpen: true})}}>
+                                        <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M14.5 6L18 2.5M20 0.5L18 2.5L20 0.5ZM10.39 10.11C10.9064 10.6195 11.3168 11.226 11.5978 11.8948C11.8787 12.5635 12.0246 13.2813 12.0271 14.0066C12.0295 14.732 11.8884 15.4507 11.6119 16.1213C11.3355 16.7919 10.9291 17.4012 10.4162 17.9141C9.90326 18.4271 9.29395 18.8334 8.62333 19.1099C7.95271 19.3864 7.23403 19.5275 6.50866 19.525C5.7833 19.5226 5.06557 19.3767 4.39682 19.0958C3.72807 18.8148 3.1215 18.4043 2.61203 17.888C1.61016 16.8507 1.05579 15.4614 1.06832 14.0193C1.08085 12.5772 1.65928 11.1977 2.67903 10.178C3.69877 9.15825 5.07824 8.57982 6.52032 8.56729C7.96241 8.55476 9.35172 9.10913 10.389 10.111L10.39 10.11ZM10.39 10.11L14.5 6L10.39 10.11ZM14.5 6L17.5 9L21 5.5L18 2.5L14.5 6Z" stroke="currentColor" strokeLinecap="square" />
+                                        </svg>
+                                    </Button>
+                                )
+                                :
+                                (<span>
                                     <span className="d-lg-none">
                                         <i className="material-icons large d-inline">account_circle</i>
                                         <Link to={`/account/${signedInAddress}`}> {signedInAddress}</Link>
@@ -216,7 +207,7 @@ export default class Header extends Component {
                                             </PopoverBody>
                                         </UncontrolledPopover>
                                     </span>
-                                </span>}
+                                </span>)}
                             <LedgerModal isOpen={this.state.isSignInOpen} toggle={this.toggleSignIn} refreshApp={this.props.refreshApp} handleLoginConfirmed={this.shouldLogin()?this.handleLoginConfirmed:null}/>
                         </NavItem>
                         <NavItem>

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Row, Col, Nav, NavItem, NavLink, Card } from 'reactstrap';
-import List from './ListContainer.js';
-import ChainStates from '../components/ChainStatesContainer.js'
-import { Helmet } from 'react-helmet';
 import i18n from 'meteor/universe:i18n';
 import qs from 'querystring';
+import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
+import { Card, CardBody, Col, Nav, NavItem, NavLink, Row } from 'reactstrap';
+import PageHeader from '../components/PageHeader.jsx';
+import List from './ListContainer.js';
 
 const T = i18n.createComponent();
 
@@ -80,56 +80,72 @@ export default class Validators extends Component{
                 <title>{Meteor.settings.public.chainName} Validators List | Big Dipper</title>
                 <meta name="description" content="Here is a list of {Meteor.settings.public.chainName} Validators" />
             </Helmet>
-            <Row>
-                <Col lg={3} xs={12}><h1 className="d-none d-lg-block">{title}</h1></Col>
-                <Col lg={9} xs={12} className="text-lg-right"><ChainStates /></Col>
-            </Row>
-            <Nav pills className="status-switch">
-                <NavItem>
-                    <NavLink tag={Link} to="/validators" active={(this.props.match.url == "/validators")}><T>validators.navActive</T></NavLink>
+            <PageHeader pageTitle={<T>navbar.validators</T>} />
+            <Nav className="mt-n4 mb-10">
+                <NavItem className="mr-4">
+                    <NavLink className="p-0" tag={Link} to="/validators" active={(this.props.match.url == "/validators")}><T>validators.navActive</T></NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink tag={Link} to="/validators/inactive"
-                        active={(this.props.match.url.indexOf("inactive")>0)}>
+                    <NavLink className="p-0" tag={Link} to="/validators/inactive" active={(this.props.match.url.indexOf("inactive")>0)}>
                         <T>validators.navInactive</T>
                     </NavLink>
                 </NavItem>
             </Nav>
-            <p className="lead">{desc}</p>
             <Row className="validator-list">
                 <Col md={12}>
-                    <Card body>
-                        <Row className="header text-nowrap">
-                            <Col className="d-none d-md-block counter" md={1}>&nbsp;</Col>
-                            <Col className="moniker" md={2} onClick={(e) => this.toggleDir('moniker',e)}><i className="material-icons">perm_contact_calendar</i> <span className="d-inline-block d-md-none d-lg-inline-block"><T>validators.moniker</T></span> {renderToggleIcon(this.state.monikerDir)} </Col>
-                            <Col className="voting-power" md={3} lg={2} onClick={(e) => this.toggleDir('votingPower',e)}><i className="material-icons">power</i> <span className="d-inline-block d-md-none d-lg-inline-block">{(this.props.inactive)?<T>common.bondedTokens</T>:<T>common.votingPower</T>}</span> {renderToggleIcon(this.state.votingPowerDir)} </Col>
-                            <Col className="self-delegation" md={1} onClick={(e) => this.toggleDir('selfDel',e)}><i className="material-icons">equalizer</i> <span className="d-md-none d-lg-inline-block"><T>validators.selfPercentage</T></span> {renderToggleIcon(this.state.selfDelDir==1)} </Col>
-                            {(!this.props.inactive)?<Col className="commission" md={1} lg={2} onClick={(e) => this.toggleDir('commission',e)}><i className="material-icons">call_split</i> <span className="d-inline-block d-md-none d-lg-inline-block"><T>validators.commission</T></span> {renderToggleIcon(this.state.commissionDir==1)}</Col>:''}
-                            {(!this.props.inactive)?<Col className="uptime" md={2} lg={3} onClick={(e) => this.toggleDir('uptime',e)}><i className="material-icons">flash_on</i> <span className="d-inline-block d-md-none d-lg-inline-block"><T>validators.uptime</T> ({Meteor.settings.public.slashingWindow} <i className="fas fa-cube"></i>)</span> {renderToggleIcon(this.state.uptimeDir==1)}</Col>:''}
-                            {(this.props.inactive)?<Col className="last-seen" md={3}><i className="far fa-clock"></i> <span className="d-md-none d-lg-inline-block"><T>validators.lastSeen</T> (UTC)</span></Col>:''}
-                            {(this.props.inactive)?<Col className="bond-status d-none d-md-block" md={1} onClick={(e) => this.toggleDir('status',e)}><i className="material-icons">toggle_on</i> <span className="d-md-none d-lg-inline-block"><T>validators.status</T></span> {renderToggleIcon(this.state.statusDir)} </Col>:''}
-                            {(this.props.inactive)?<Col className="jail-status d-none d-md-block" md={1} onClick={(e) => this.toggleDir('jailed',e)}><i className="material-icons">lock</i> <span className="d-md-none d-lg-inline-block"><T>validators.jailed</T></span> {renderToggleIcon(this.state.jailedDir)} </Col>:''}
-                        </Row>
+                    <Card className="mb-0">
+                        <div className="card-header text-capitalize"><T>blocks.latestBlocks</T></div>
+                        <div className="card-body overflow-hidden p-0">
+                            <div className="bg-gray-light px-6 py-4">
+                                <Row className="d-none d-md-flex">
+                                    <Col className="d-none d-md-block counter" md={1}>&nbsp;</Col>
+                                    <Col md={2} className="moniker d-flex align-items-center" onClick={(e) => this.toggleDir('moniker',e)}>
+                                        <span><T>validators.moniker</T></span> {renderToggleIcon(this.state.monikerDir)}
+                                    </Col>
+                                    {(!this.props.inactive)?(<Col className="uptime d-flex align-items-center" md={{size:3,order:"last"}} lg={{size:4,order:"last"}} onClick={(e) => this.toggleDir('uptime',e)}>
+                                        <span><T>validators.uptime</T></span> {renderToggleIcon(this.state.uptimeDir==1)}
+                                    </Col>):''}
+                                    <Col className="voting-power d-flex align-items-center" md={2} onClick={(e) => this.toggleDir('votingPower',e)}>
+                                        <span>{(this.props.inactive)?<T>common.bondedTokens</T>:<T>common.votingPower</T>}</span> {renderToggleIcon(this.state.votingPowerDir)}
+                                    </Col>
+                                    <Col className="self-delegation d-flex align-items-center" md={2} onClick={(e) => this.toggleDir('selfDel',e)}>
+                                        <span><T>validators.selfPercentage</T></span> {renderToggleIcon(this.state.selfDelDir==1)}
+                                    </Col>
+                                    {(!this.props.inactive)?(<Col className="commission d-flex align-items-center" md={2} lg={1} onClick={(e) => this.toggleDir('commission',e)}>
+                                        <span><T>validators.commission</T></span> {renderToggleIcon(this.state.commissionDir==1)}
+                                    </Col>):''}
+                                    {(this.props.inactive)?(<Col className="last-seen d-flex align-items-center" md={3}>
+                                        <span><T>validators.lastSeen</T> (UTC)</span>
+                                    </Col>):''}
+                                    {(this.props.inactive)?(<Col className="bond-status d-none d-md-flex align-items-center" md={1} onClick={(e) => this.toggleDir('status',e)}>
+                                        <span><T>validators.status</T></span> {renderToggleIcon(this.state.statusDir)}
+                                    </Col>):''}
+                                    {(this.props.inactive)?(<Col className="jail-status d-none d-md-flex align-items-center" md={1} onClick={(e) => this.toggleDir('jailed',e)}>
+                                        <span><T>validators.jailed</T></span> {renderToggleIcon(this.state.jailedDir)}
+                                    </Col>):''}
+                                </Row>
+                            </div>
+                            {(this.props.inactive)?<List
+                                inactive={this.props.inactive}
+                                monikerDir={this.state.monikerDir}
+                                votingPowerDir={this.state.votingPowerDir}
+                                uptimeDir={this.state.uptimeDir}
+                                commissionDir={this.state.commissionDir}
+                                selfDelDir={this.state.selfDelDir}
+                                statusDir={this.state.statusDir}
+                                jailedDir={this.state.jailedDir}
+                                priority={this.state.priority}
+                                status={this.props.status}
+                            />:<List
+                                monikerDir={this.state.monikerDir}
+                                votingPowerDir={this.state.votingPowerDir}
+                                uptimeDir={this.state.uptimeDir}
+                                commissionDir={this.state.commissionDir}
+                                selfDelDir={this.state.selfDelDir}
+                                priority={this.state.priority}
+                            />}
+                        </div>
                     </Card>
-                    {(this.props.inactive)?<List
-                        inactive={this.props.inactive}
-                        monikerDir={this.state.monikerDir}
-                        votingPowerDir={this.state.votingPowerDir}
-                        uptimeDir={this.state.uptimeDir}
-                        commissionDir={this.state.commissionDir}
-                        selfDelDir={this.state.selfDelDir}
-                        statusDir={this.state.statusDir}
-                        jailedDir={this.state.jailedDir}
-                        priority={this.state.priority}
-                        status={this.props.status}
-                    />:<List
-                        monikerDir={this.state.monikerDir}
-                        votingPowerDir={this.state.votingPowerDir}
-                        uptimeDir={this.state.uptimeDir}
-                        commissionDir={this.state.commissionDir}
-                        selfDelDir={this.state.selfDelDir}
-                        priority={this.state.priority}
-                    />}
                 </Col>
             </Row>
         </div>

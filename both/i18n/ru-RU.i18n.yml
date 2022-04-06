@@ -41,7 +41,7 @@ navbar:
     transactions: 'Транзакции'
     proposals: 'Предложения'
     votingPower: 'Право голоса'
-    lang: "RU"
+    lang: "Ru"
     english: "English"
     spanish: "Español"
     italian: "Italiano"

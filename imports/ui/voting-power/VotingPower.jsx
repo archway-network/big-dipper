@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import {HorizontalBar} from 'react-chartjs-2';
-import { Row, Col, Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button, Progress, Spinner } from 'reactstrap';
-import numbro from 'numbro';
 import i18n from 'meteor/universe:i18n';
+import numbro from 'numbro';
+import React, { Component } from 'react';
+import { HorizontalBar } from 'react-chartjs-2';
+import { Card, CardBody, Spinner } from 'reactstrap';
 import SentryBoundary from '../components/SentryBoundary.jsx';
-
 
 const T = i18n.createComponent();
 
@@ -42,7 +40,7 @@ export default class VotingPower extends Component{
                 labels.push(this.props.stats[v].description?this.props.stats[v].description.moniker:'');
                 data.push(this.props.stats[v].voting_power);
                 let alpha = (this.props.stats.length+1-v)/this.props.stats.length*0.8+0.2;
-                backgroundColors.push('rgba(189, 8, 28,'+alpha+')');
+                backgroundColors.push('rgba(240, 90, 39,'+alpha+')');
             }
             this.setState({
                 data:{
@@ -56,6 +54,9 @@ export default class VotingPower extends Component{
                     ]
                 },
                 options:{
+                    legend: {
+                        display: false,
+                    },
                     tooltips: {
                         callbacks: {
                             label: function(tooltipItem, data) {
@@ -65,8 +66,13 @@ export default class VotingPower extends Component{
                     },
                     maintainAspectRatio: false,
                     scales: {
+                        yAxes: [{
+                            display: false,
+                        }],
                         xAxes: [{
+                            display: false,
                             ticks: {
+                                display: false,
                                 beginAtZero:true,
                                 userCallback: function(value, index, values) {
                                     // Convert the number to a string and splite the string every 3 charaters from the end
@@ -78,7 +84,7 @@ export default class VotingPower extends Component{
                 }
             });
 
-            $("#voting-power-chart").height(16*data.length);
+            $("#voting-power-chart").height(16 * data.length);
         }
     }
 

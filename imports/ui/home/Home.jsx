@@ -1,14 +1,12 @@
-  
 import React, { Component } from 'react';
-import {Row, Col } from 'reactstrap';
+import { Helmet } from 'react-helmet';
+import { Col, Row } from 'reactstrap';
+import { Meteor } from 'meteor/meteor';
+import PageHeader from '../components/PageHeader.jsx';
 import ChainStatus from './ChainStatusContainer.js';
-import ChainInfo from '../components/ChainInfo.jsx'
 import Consensus from './ConsensusContainer.js';
-import TopValidators from './TopValidatorsContainer.js';
-import Chart from './ChartContainer.js';
-import { Helmet } from "react-helmet";
-import BlocksTable from '/imports/ui/blocks/BlocksTable.jsx'
-import Transactions from '/imports/ui/transactions/TransactionsList.jsx'
+import BlocksTable from '/imports/ui/blocks/BlocksTable.jsx';
+import Transactions from '/imports/ui/transactions/TransactionsList.jsx';
 
 export default class Home extends Component{
     constructor(props){
@@ -21,7 +19,7 @@ export default class Home extends Component{
                 <title>Big Dipper | Cosmos Explorer presented by Forbole</title>
                 <meta name="description" content="Cosmos is a decentralized network of independent parallel blockchains, each powered by BFT consensus algorithms like Tendermint consensus." />
             </Helmet>
-            <ChainInfo/>
+            <PageHeader pageTitle={Meteor.settings.public.chainName} />
             <Consensus />
             <ChainStatus />
             <Row>

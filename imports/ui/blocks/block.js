@@ -20,7 +20,7 @@ export default class Block extends Component {
         let proposerOperatorAddress = validator?.operator_address ?? this.props?.block?.proposerAddress;
         if (proposer){
             let moniker=proposer?.description?.moniker ?? this.props.block.proposerAddress;
-            return <Row className="block-info">
+            return <Row className="block-info px-6 py-4">
                 <Col xs={8} sm={4} lg={homepage ? 4 : 3} className="overflow-auto"><i className="far fa-clock d-sm-none"></i><TimeStamp time={this.props.block.time} /></Col>
                 <Col xs={4} sm={2} className="text-truncate"><i className="fas fa-hashtag d-sm-none"></i> {this.props.block.hash}</Col>
                 <Col xs={8} sm={3} md={2} lg={3} className="text-truncate"><Link to={"/validator/" + proposerOperatorAddress}><Avatar moniker={moniker} profileUrl={proposer.profile_url} address={proposerOperatorAddress} list={true} /> {moniker}</Link></Col>
