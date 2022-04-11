@@ -1,4 +1,5 @@
-FROM geoffreybooth/meteor-base:2.2
+# FROM geoffreybooth/meteor-base:2.2
+FROM geoffreybooth/meteor-base
 
 COPY package*.json $APP_SOURCE_FOLDER/
 
