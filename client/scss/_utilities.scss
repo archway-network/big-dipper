@@ -1,0 +1,71 @@
+.bg-transparent {
+    background-color: transparent;
+}
+
+.bg-orange {
+    background-color: $orange !important;
+}
+
+.bg-dark-orange {
+    background-color: $orange !important;
+}
+
+.bg-green {
+    background-color: $green !important;
+}
+
+.bg-gray {
+    background-color: $gray !important;
+}
+
+.bg-gray-light {
+    background-color: $gray-light !important;
+}
+
+.bg-black {
+    background-color: #000 !important;
+}
+
+.text-white {
+    color: $white !important;
+}
+
+.text-orange {
+    color: $orange !important;
+}
+
+.text-dark-orange {
+    color: $dark-orange !important;
+}
+
+.text-green {
+    color: $green !important;
+}
+
+.text-white\/60 {
+    color: rgba(255, 255, 255, .6);
+}
+
+.text-black\/60 {
+    color: rgba(0, 0, 0, .6);
+}
+
+.top-0 {
+    top: 0;
+}
+
+.right-0 {
+    right: 0;
+}
+
+.rounded-xl {
+    border-radius: .5rem;
+}
+
+.border {
+    border: .25px solid $black !important;
+}
+
+.border-t {
+    border-top: .25px solid $black !important;
+}

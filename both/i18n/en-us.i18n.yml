@@ -65,7 +65,7 @@ navbar:
     transactions: 'Transactions'
     proposals: 'Proposals'
     votingPower: 'Voting Power'
-    lang: "ENG"
+    lang: "Eng"
     english: "English"
     spanish: "Español"
     italian: "Italiano"
@@ -157,7 +157,7 @@ blocks:
     proposer: 'Proposer'
     latestBlocks: 'Latest blocks'
     noBlock: 'No block.'
-    numOfTxs: 'No. of Txs'
+    numOfTxs: 'Txs #'
     numOfTransactions: 'No. of Transactions'
     notFound: 'No such block found.'
 transactions:

@@ -1,26 +1,24 @@
-
-import React, { Component } from 'react';
-import GoogleTagManager from '/imports/ui/components/GoogleTagManager.jsx';
-import { Route, Switch, withRouter } from 'react-router-dom'
 import { createMemoryHistory } from 'history';
+import moment from 'moment';
+import React, { Component } from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import { Container } from 'reactstrap';
-import Header from '/imports/ui/components/Header.jsx';
-import Footer from '/imports/ui/components/Footer.jsx';
-import Home from '/imports/ui/home/Home.jsx';
-import Validators from '/imports/ui/validators/ValidatorsList.jsx';
+import Footer from './components/Footer';
 import Account from '/imports/ui/accounts/Account.jsx';
 import BlocksTable from '/imports/ui/blocks/BlocksTable.jsx';
-import Proposals from '/imports/ui/proposals/Proposals.jsx';
-import ValidatorDetails from '/imports/ui/validators/ValidatorDetails.jsx';
-import Transactions from '/imports/ui/transactions/TransactionsList.jsx';
-import Distribution from '/imports/ui/voting-power/Distribution.jsx';
-import SearchBar from '/imports/ui/components/SearchBar.jsx';
-import moment from 'moment';
-import SentryBoundary from '/imports/ui/components/SentryBoundary.jsx';
-import NotFound from '/imports/ui/pages/NotFound.jsx';
 import Banners from '/imports/ui/components/Banners.jsx';
-
-import { ToastContainer, toast } from 'react-toastify';
+import GoogleTagManager from '/imports/ui/components/GoogleTagManager.jsx';
+import Header from '/imports/ui/components/Header.jsx';
+import SearchBar from '/imports/ui/components/SearchBar.jsx';
+import SentryBoundary from '/imports/ui/components/SentryBoundary.jsx';
+import Home from '/imports/ui/home/Home.jsx';
+import NotFound from '/imports/ui/pages/NotFound.jsx';
+import Proposals from '/imports/ui/proposals/Proposals.jsx';
+import Transactions from '/imports/ui/transactions/TransactionsList.jsx';
+import ValidatorDetails from '/imports/ui/validators/ValidatorDetails.jsx';
+import Validators from '/imports/ui/validators/ValidatorsList.jsx';
+import Distribution from '/imports/ui/voting-power/Distribution.jsx';
 
 if (Meteor.isClient)
     import 'react-toastify/dist/ReactToastify.min.css';
@@ -82,7 +80,7 @@ class App extends Component {
                     {(Meteor.settings.public.banners)?<Banners url={Meteor.settings.public.banners}/>:''}
                     <ToastContainer />
                     <SentryBoundary>
-                        <MobileSearchBar />
+                        {/* <MobileSearchBar /> */}
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route path="/blocks" component={BlocksTable} />

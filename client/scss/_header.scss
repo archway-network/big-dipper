@@ -1,0 +1,89 @@
+#header {
+  &.navbar {
+    background-color: $gray !important;
+    border-bottom: .25px solid $black;
+    box-shadow: none !important;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    .navbar-brand {
+      padding-top: 1.25rem;
+      padding-bottom: 1.25rem;
+      padding-right: 1.5rem;
+      border-right: .25px solid $black;
+    }
+    a.navbar-brand .logo {
+      max-height: 44px;
+      max-width: 40px;
+    }
+    #network-nav {
+      font-size: 1rem;
+      color: $black;
+    }
+    .nav-link {
+      color: $black !important;
+      &:hover {
+        color: $orange !important;
+      }
+    }
+  }
+
+  .dropdown-header {
+    font-size: 1rem !important;
+  }
+
+  .dropdown-header img {
+    height: 2em;
+    margin-right: 0.25em;
+  }
+
+  .dropdown-item a span.badge {
+    transform: translateY(-1px);
+  }
+
+  #user-acconut-icon {
+    a {
+      position: relative;
+      bottom: 7px;
+    }
+
+    i {
+      cursor: pointer;
+    }
+
+    .d-lg-block {
+      height: 100%;
+
+      i {
+        align-items: center;
+        display: flex;
+        height: 100%;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1024px) {
+      .collapse {
+        border-top: .25px solid $black;
+      }
+  }
+}
+
+#header-search {
+  margin-left: 1rem;
+  margin-right: 0.5rem;
+
+  .form-control {
+    height: auto;
+    padding: 0.5rem 0;
+  }
+}
+
+#mobile-searchbar {
+  .form-control {
+    height: auto;
+    padding: 0.5rem 0;
+  }
+
+  margin-bottom: 0.5em;
+}

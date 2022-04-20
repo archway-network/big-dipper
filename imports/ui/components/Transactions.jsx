@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Card, CardHeader, CardBody, Container, Row, Col, Spinner } from 'reactstrap';
-import TransactionTabs from '../transactions/TransactionTabs.jsx';
 import i18n from 'meteor/universe:i18n';
+import React, { Component } from 'react';
+import { Card, Spinner } from 'reactstrap';
+import TransactionTabs from '../transactions/TransactionTabs.jsx';
 
 const T = i18n.createComponent();
 
-export default class ValidatorTransactions extends Component{
+export default class Transactions extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -35,20 +35,20 @@ export default class ValidatorTransactions extends Component{
     render(){
         if (this.props.loading){
             return <Spinner color="primary" type="glow" />
-        }
-        else if (this.props.transactionsExist){
-            return <TransactionTabs 
-                transferTxs={this.state.transferTxs}
-                stakingTxs={this.state.stakingTxs}
-                distributionTxs={this.state.distributionTxs}
-                governanceTxs={this.state.governanceTxs}
-                slashingTxs={this.state.slashingTxs}
-            />
-        }
-        else {
-            return <Card body>
-                <T>transactions.noValidatorTxsFound</T>
-            </Card>
+        } else if (this.props.transactionsExist){
+            return (
+                <TransactionTabs 
+                    transferTxs={this.state.transferTxs}
+                    stakingTxs={this.state.stakingTxs}
+                    distributionTxs={this.state.distributionTxs}
+                    governanceTxs={this.state.governanceTxs}
+                    slashingTxs={this.state.slashingTxs}
+                />
+            );
+        } else {
+            return (
+                <Card body><T>transactions.noValidatorTxsFound</T></Card>
+            )
         }
     }
 }

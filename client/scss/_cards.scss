@@ -1,0 +1,27 @@
+.card {
+  background-color: transparent;
+  box-shadow: none;
+  border: .25px solid $black;
+  border-radius: 0%;
+  margin-bottom: 1.5rem;
+
+  .card-header {
+    background-color: transparent;
+    border-bottom: .25px solid $black;
+    font-weight: 700;
+    .nav-link {
+      font-weight: 400;
+      &.active {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .dropdown {
+    .btn, &.btn:focus {
+      box-shadow: none;
+      background-color: transparent;
+    }
+  }
+}
+  

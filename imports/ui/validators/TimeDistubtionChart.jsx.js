@@ -64,11 +64,11 @@ export default class TimeDistubtionChart extends Component{
                 type: 'Bar',
                 x: {
                     value: (d, i, ds) => d.x.toDate(),
-                    scale: 'xScale'
+                    scale: 'xScale',
                 },
                 y: {
                     value: (d, i, ds) => d.y,
-                    scale: 'yScale'
+                    scale: 'yScale',
                 },
                 datasets: ['timeline'],
                 interactions: {
@@ -127,6 +127,7 @@ export default class TimeDistubtionChart extends Component{
         }];
         let datasets = [{
             datasetId: 'breakdown',
+            color: 'GREEN',
             data: breakdown
         }];
         let components = {
@@ -181,7 +182,7 @@ export default class TimeDistubtionChart extends Component{
     render () {
         let data = this.populateChartData();
         return [
-            <Card key='timeilne'>
+            <Card key='timeline'>
                 <CardHeader className='text-capitalize'>History Missed {this.props.type}</CardHeader>
                 <CardBody>
                     <PChart {...this.populateTimelineChart(data.timeline)} />

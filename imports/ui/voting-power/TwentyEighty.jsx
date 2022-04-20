@@ -36,17 +36,23 @@ export default class TwentyEighty extends Component{
                                 bottomPercent
                             ],
                             backgroundColor: [
-                                '#bd081c',
-                                '#ff63c0'
+                                '#f05a27',
+                                '#DFDAD2'
                             ],
                             hoverBackgroundColor: [
-                                '#bd081c',
-                                '#ff63c0'
+                                '#ab3a1a',
+                                '#5e5c5a'
                             ]
                         }
                     ]
                 },
                 options:{
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                        },
+                    },
                     tooltips: {
                         callbacks: {
                             label: function(tooltipItem, data) {

@@ -23,7 +23,7 @@ export default class PowerHistory extends React.Component {
                 if (result){
                     let self = this;
                     this.setState({
-                        tx: result.map((msg, i) => <CardFooter key={i} className="text-secondary"><Row>
+                        tx: result.map((msg, i) => <CardFooter key={i} className="mx-4 px-0 bg-transparent border-t"><Row>
                             <Col xs={12} sm={8}>
                                 {(msg.tx.body.messages && msg.tx.body.messages.length > 0)?msg.tx.body.messages.map((m, j) => {
                                     switch (m["@type"]){
@@ -31,21 +31,20 @@ export default class PowerHistory extends React.Component {
                                         return <Row key={j}>
                                             <Col xs={12}>
                                                 <Row>
-                                                    <Col xs={4}><T>validators.delegator</T></Col>
+                                                    <Col xs={4} className="text-nowrap text-black/60"><T>validators.delegator</T></Col>
                                                     <Col xs={8} className="address" data-delegator-address={m.delegator_address}><Account address={m.delegator_address} /></Col>
                                                 </Row>
                                             </Col>
                                             <Col xs={12}>
                                                 <Row>
-                                                    <Col xs={4}>{(this.props.address == m.validator_dst_address)?<T>activities.from</T>:<T>activities.to</T>}</Col>
+                                                    <Col xs={4} className="text-nowrap text-black/60">{(this.props.address == m.validator_dst_address)?<T>activities.from</T>:<T>activities.to</T>}</Col>
                                                     <Col xs={8} className="address" data-validator-address={(this.props.address == m.validator_dst_address)?m.validator_src_address:m.validator_dst_address}><Account address={(this.props.address == m.validator_dst_address)?m.validator_src_address:m.validator_dst_address} /></Col>
                                                 </Row>
                                             </Col>
                                             <Col xs={12}>
                                                 <Row>
-                                                    <Col xs={4}><T>validators.amount</T></Col>
+                                                    <Col xs={4} className="text-nowrap text-black/60"><T>validators.amount</T></Col>
                                                     <Col xs={8}>{new Coin(m.amount.amount, m.amount.denom).toString(6)}</Col>
-                                                    
                                                 </Row>
                                             </Col>
                                         </Row>
@@ -54,13 +53,13 @@ export default class PowerHistory extends React.Component {
                                             return <Row key={j}>
                                                 <Col xs={12}>
                                                     <Row>
-                                                        <Col xs={4}><T>validators.delegator</T></Col>
+                                                        <Col xs={4} className="text-nowrap text-black/60"><T>validators.delegator</T></Col>
                                                         <Col xs={8} className="address" data-delegator-address={m.delegator_address}><Account address={m.delegator_address} /></Col>
                                                     </Row>
                                                 </Col>
                                                 <Col xs={12}>
                                                     <Row>
-                                                        <Col xs={4}><T>validators.amount</T></Col>
+                                                        <Col xs={4} className="text-nowrap text-black/60"><T>validators.amount</T></Col>
                                                         <Col xs={8}>{new Coin(m.amount.amount, m.amount.denom).toString(6)}</Col>
                                                     </Row>
                                                 </Col>
@@ -73,13 +72,13 @@ export default class PowerHistory extends React.Component {
                                         return <Row key={j}>
                                             <Col xs={12}>
                                                 <Row>
-                                                    <Col xs={4}><T>validators.delegator</T></Col>
+                                                    <Col xs={4} className="text-nowrap text-black/60"><T>validators.delegator</T></Col>
                                                     <Col xs={8} className="address" data-delegator-address={m.delegator_address}><Account address={m.delegator_address} /></Col>
                                                 </Row>
                                             </Col>
                                             <Col xs={12}>
                                                 <Row>
-                                                    <Col xs={4}><T>validators.amount</T></Col>
+                                                    <Col xs={4} className="text-nowrap text-black/60"><T>validators.amount</T></Col>
                                                     <Col xs={8}>{new Coin(m.value.amount, m.value.denom).toString(6)}</Col>
                                                 </Row>
                                             </Col>
@@ -88,13 +87,13 @@ export default class PowerHistory extends React.Component {
                                         return <Row key={j}>
                                             <Col xs={12}>
                                                 <Row>
-                                                    <Col xs={4}><T>validators.delegator</T></Col>
+                                                    <Col xs={4} className="text-nowrap text-black/60"><T>validators.delegator</T></Col>
                                                     <Col xs={8} className="address" data-delegator-address={m.delegator_address}><Account address={m.delegator_address} /></Col>
                                                 </Row>
                                             </Col>
                                             <Col xs={12}>
                                                 <Row>
-                                                    <Col xs={4}><T>validators.amount</T></Col>
+                                                    <Col xs={4} className="text-nowrap text-black/60"><T>validators.amount</T></Col>
                                                     <Col xs={8}>{new Coin(m.amount.amount, m.amount.denom).toString(6)}</Col>
                                                 </Row>
                                             </Col>
@@ -126,8 +125,8 @@ export default class PowerHistory extends React.Component {
                                             }):''}
                                         </Row>
                                         <Row>
-                                            <Col xs={4} sm={6}><T>transactions.fee</T></Col>
-                                            <Col xs={8} sm={6}>{(msg.tx.auth_info.fee.amount&& msg.tx.auth_info.fee.amount.length>0)?msg.tx.auth_info.fee.amount.map((amount,i)=> new Coin(amount.amount, amount.denom).toString(6)).join(' ,'):'0'}</Col>
+                                            <Col xs={4} sm={6} className="text-nowrap text-black/60"><T>transactions.fee</T></Col>
+                                            <Col xs={8} sm={6} className="text-nowrap text-black/60">{(msg.tx.auth_info.fee.amount&& msg.tx.auth_info.fee.amount.length>0)?msg.tx.auth_info.fee.amount.map((amount,i)=> new Coin(amount.amount, amount.denom).toString(6)).join(' ,'):'0'}</Col>
                                         </Row>
                                     </Col>
                                 </Row>
@@ -141,27 +140,51 @@ export default class PowerHistory extends React.Component {
     }
 
     render() {
-        let changeClass = "";
-        switch (this.props.type){
+        const {type} = this.props;
+
+        let iconType = "";
+        let iconColor = "";
+
+        switch (type) {
         case 'up':
-            changeClass = "fas fa-chevron-circle-up";
+            iconType = "fas fa-chevron-circle-up";
+            iconColor = 'text-green';
             break;
         case 'down':
-            changeClass = "fas fa-chevron-circle-down";
+            iconType = "fas fa-chevron-circle-down";
+            iconColor = 'text-dark-orange';
             break;
         case 'remove':
-            changeClass = "fas fa-minus-circle";
+            iconType = "fas fa-minus-circle";
+            iconColor = 'text-orange';
             break;
         default:
-            changeClass = "fas fa-plus-circle";
+            iconType = "fas fa-plus-circle";
+            iconColor = 'text-green';
         }
+
         return (
-            <Card className={this.props.type}>
+            <Card className={`border-0 mx-4 my-2 bg-gray-light ${this.props.type}`}>
                 <CardBody>
                     <Row>
-                        <Col xs={2} className={(this.props.type == 'down' || this.props.type == 'remove')?'text-danger':(this.props.type == 'up'?'text-success':'text-warning')}><i className={changeClass}></i> </Col>
-                        <Col xs={10} sm={6} ><span className="voting-power">{numbro(this.props.prevVotingPower).format('0,0')}</span> <i className="material-icons text-info">arrow_forward</i> <span className="voting-power">{numbro(this.props.votingPower).format('0,0')}</span> {this.state.diff}</Col>
-                        <Col xs={{size:10, offset:2}} sm={{offset:0, size:4}} className="text-secondary"><i className="fas fa-cube"></i> {numbro(this.props.height).format('0,0')}<br/><i className="far fa-clock"></i> {momemt.utc(this.props.time).format("D MMM YYYY, h:mm:ssa z")}</Col>
+                        <Col xs={6} className="d-flex align-items-center">
+                            <div className={`pb-2 mr-4 ${iconColor}`}>
+                                <i className={`${iconType} fa-lg`}></i>
+                            </div>
+                            <div>
+                                <span className="voting-power">{numbro(this.props.prevVotingPower).format('0,0')}</span> <i className="material-icons text-info">arrow_forward</i> <span className="voting-power">{numbro(this.props.votingPower).format('0,0')}</span> {this.state.diff}
+                            </div>
+                        </Col>
+                        <Col xs={6}>
+                            <Row>
+                                <Col xs={3} className="text-nowrap text-black/60">Block</Col>
+                                <Col xs={9}>{numbro(this.props.height).format('0,0')}</Col>
+                            </Row>
+                            <Row>
+                                <Col xs={3} className="text-nowrap text-black/60">Date</Col>
+                                <Col xs={9}>{momemt.utc(this.props.time).format("D MMM YYYY, h:mm:ssa z")}</Col>
+                            </Row>
+                        </Col>
                     </Row>
                 </CardBody>
                 {this.state.tx}

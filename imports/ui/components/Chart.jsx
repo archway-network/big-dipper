@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import * as d3 from "d3";
+import React, { Component } from 'react';
 import Tooltip from 'tooltip.js';
 let Axes, Components, Dataset, Interactions, Plots, Scales;
 

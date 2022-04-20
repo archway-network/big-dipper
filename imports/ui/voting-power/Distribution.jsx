@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
+import PageHeader from '../components/PageHeader.jsx';
 import TwentyEighty from './TwentyEightyContainer.js';
 import ThirtyFour from './ThirtyFourContainer.js';
 import VotingPower from './VotingPowerContainer.js';
@@ -15,15 +16,12 @@ export default class Distribution extends Component{
     }
 
     render(){
-        return <div id="voting-power-dist">
+        return <div>
             <Helmet>
                 <title>Voting Power Distribution on {Meteor.settings.public.chainName} | Big Dipper</title>
                 <meta name="description" content="We would like to keep track how voting power are distributed over time among validators." />
             </Helmet>
-            <Row>
-                <Col md={3} xs={12}><h1 className="d-none d-lg-block"><T>votingPower.distribution</T></h1></Col>
-                <Col md={9} xs={12} className="text-md-right"><ChainStates /></Col>
-            </Row>
+            <PageHeader pageTitle={<T>navbar.votingPower</T>} />
             <Row>
                 <Col md={6}><TwentyEighty /></Col>
                 <Col md={6}><ThirtyFour /></Col>
@@ -33,7 +31,6 @@ export default class Distribution extends Component{
                     <VotingPower />
                 </Col>
             </Row>
-
         </div>
     }
 }

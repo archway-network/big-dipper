@@ -84,7 +84,7 @@ spec:
     spec:
       containers:
         - name: bigdipper
-          image: drewstaylor/bigdipper # edit me with the docker image
+          image: drewstaylor/bigdipper:1.0.0-archway # edit me with the docker image
           imagePullPolicy: IfNotPresent
           env:
             - name: ROOT_URL

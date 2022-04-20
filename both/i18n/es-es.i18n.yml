@@ -29,7 +29,7 @@ navbar:
     transactions: 'Transacciones'
     proposals: 'Propuestas'
     votingPower: 'Poder de voto'
-    lang: "ES"
+    lang: "Es"
     english: "English"
     spanish: "Español"
     italian: "Italiano"
@@ -120,7 +120,7 @@ blocks:
     proposer: 'Proposer'
     latestBlocks: 'Últimos bloques'
     noBlock: 'No bloque.'
-    numOfTxs: 'No. de txs'
+    numOfTxs: 'Txs #'
     numOfTransactions: 'No. de transacciones'
     notFound: 'No se ha encontrado tal bloque.'
 transactions:

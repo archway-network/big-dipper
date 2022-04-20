@@ -53,10 +53,13 @@ export default class Consensus extends Component{
                 let validatorOperatorAddress = validator?.operator_address ?? this.props.consensus.proposerAddress;
                 return (
                     <div>
-                        {(this.state.chainStopped)?<Card body inverse color="danger">
-                            <span><T _purify={false} time={moment(this.props.consensus.latestBlockTime).fromNow(true)}>chainStatus.stopWarning</T></span>
+                        {(this.state.chainStopped)?<Card className="mb-6" body inverse color="danger">
+                            <div className="d-flex align-items-center">
+                                <i className="fas fa-exclamation-triangle"></i>
+                                <span className="ml-2"><T _purify={false} time={moment(this.props.consensus.latestBlockTime).fromNow(true)}>chainStatus.stopWarning</T></span>
+                            </div>
                         </Card>:''}
-                        <Card className="status consensus-state">
+                        <Card>
                             <div className="card-header"><T>consensus.consensusState</T></div>
                             <CardBody>
                                 <Row>

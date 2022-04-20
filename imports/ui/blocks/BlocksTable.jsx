@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import HeaderRecord from './HeaderRecord.jsx';
-import Blocks from '/imports/ui/blocks/ListContainer.js'
-import { LoadMore } from '../components/LoadMore.jsx';
+import i18n from 'meteor/universe:i18n';
+import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 import Sidebar from "react-sidebar";
+import { Card, CardBody, Container, Table } from 'reactstrap';
+import { LoadMore } from '../components/LoadMore.jsx';
+import PageHeader from '../components/PageHeader.jsx';
 import Block from './BlockContainer.js';
-import ChainStates from '../components/ChainStatesContainer.js'
-import { Helmet } from 'react-helmet';
-import i18n from 'meteor/universe:i18n';
-import {
-    Table, Row, Col, Card, CardBody, Container
-} from 'reactstrap';
+import HeaderRecord from './HeaderRecord.jsx';
+import Blocks from '/imports/ui/blocks/ListContainer.js';
 
 const T = i18n.createComponent();
 export default class BlocksTable extends Component {
@@ -83,18 +81,14 @@ export default class BlocksTable extends Component {
                 <title>Latest Blocks | Big Dipper</title>
                 <meta name="description" content="Latest blocks committed by validators" />
             </Helmet>
-            <Row>
-                <Col md={3} xs={12}><h1 className="d-none d-lg-block"><T>blocks.latestBlocks</T></h1></Col>
-                <Col md={9} xs={12} className="text-md-right"><ChainStates /></Col>
-            </Row>
+            <PageHeader pageTitle={<T>blocks.latestBlocks</T>} />
             <Switch>
                 <Route path="/blocks/:blockId" render={(props)=> <Sidebar 
                     sidebar={<Block {...props} />}
                     open={this.state.sidebarOpen}
                     onSetOpen={this.onSetSidebarOpen}
+                    sidebarClassName="bg-gray position-fixed"
                     styles={{ sidebar: { 
-                        background: "white", 
-                        position: "fixed",
                         width: '85%',
                         zIndex: 4
                     }, overlay:{
@@ -103,16 +97,16 @@ export default class BlocksTable extends Component {
                 >
                 </Sidebar>} />
             </Switch>
-            <Container fluid id="block-table">
+            <Card className="overflow-auto">
                 <HeaderRecord />
                 <Blocks limit={this.state.limit} />
-            </Container>
+            </Card>
             <LoadMore show={this.state.loadmore} />
         </div>
 
             : <Card className="h-100 overflow-auto">
-                <div className="card-header"><T>blocks.latestBlocks</T></div>
-                <CardBody className="overflow-auto">
+                <div className="card-header text-capitalize"><T>blocks.latestBlocks</T></div>
+                <CardBody className="overflow-auto p-0">
                     <Table striped className="random-validators">
                         <thead>
                             <tr>
@@ -122,10 +116,9 @@ export default class BlocksTable extends Component {
                                         sidebar={<Block {...props} />}
                                         open={this.state.sidebarOpen}
                                         onSetOpen={this.onSetSidebarOpen}
+                                        sidebarClassName="bg-gray position-fixed"
                                         styles={{
                                             sidebar: {
-                                                background: "white",
-                                                position: "fixed",
                                                 width: '85%',
                                                 zIndex: 4
                                             }, overlay: {
@@ -134,7 +127,6 @@ export default class BlocksTable extends Component {
                                         }}
                                     >
                                     </Sidebar>} />
-                                    
                                 </Switch>
                             </tr>
                         </thead>
