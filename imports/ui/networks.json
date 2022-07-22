@@ -4,11 +4,6 @@
         "logo": "/img/archway-logo.svg",
         "links": [
             {
-                "name": "Augusta",
-                "chain_id": "augusta-1",
-                "url": "https://explorer.augusta-1.archway.tech"
-            },
-            {
                 "name": "Constantine",
                 "chain_id": "constantine-1",
                 "url": "https://explorer.constantine-1.archway.tech"
