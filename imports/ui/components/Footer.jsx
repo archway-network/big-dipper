@@ -53,10 +53,10 @@ export default () => {
                                         <span className="footer-top__list-title" data-v-26b507a6>Developers</span>
                                     </li>
                                     <li data-v-26b507a6>
-                                        <a href="/docs/overview/about" rel="noopener noreferrer" className="ft-link footer-top__link tm-link" data-v-78aa3c22 data-v-26b507a6>Introduction</a>
+                                        <a href="https://docs.archway.io/docs/overview/about" rel="noopener noreferrer" className="ft-link footer-top__link tm-link" data-v-78aa3c22 data-v-26b507a6>Introduction</a>
                                     </li>
                                     <li data-v-26b507a6>
-                                        <a href="/docs/overview/about" rel="noopener noreferrer" className="ft-link footer-top__link tm-link" data-v-78aa3c22 data-v-26b507a6>Documentation</a>
+                                        <a href="https://docs.archway.io" rel="noopener noreferrer" className="ft-link footer-top__link tm-link" data-v-78aa3c22 data-v-26b507a6>Documentation</a>
                                     </li>
                                     <li data-v-26b507a6>
                                         <a href="https://github.com/archway-network" target="_blank" rel="noopener noreferrer" className="ft-link footer-top__link tm-link" data-v-78aa3c22 data-v-26b507a6>Github</a>
