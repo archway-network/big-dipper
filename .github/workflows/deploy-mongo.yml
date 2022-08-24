@@ -1,0 +1,22 @@
+name: Deploy Mongo to Explorers Namespace
+
+on: [workflow_dispatch]
+
+jobs:
+  deploy-mongo:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Add Mongo helm chart
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          kubeconfig: "${{ secrets.KUBECONFIG }}"
+          exec: |
+            helm repo add bitnami https://charts.bitnami.com/bitnami --namespace explorers
+
+      - name: Deploy Mongo helm chart
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          kubeconfig: "${{ secrets.KUBECONFIG }}"
+          exec: |
+            helm upgrade --install mongodb bitnami/mongodb --version 12.1.22 --set auth.enabled=false --namespace explorers 
