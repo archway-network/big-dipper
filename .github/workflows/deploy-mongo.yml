@@ -1,6 +1,8 @@
 name: Deploy Mongo to Explorers Namespace
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    branches: [main]
 
 jobs:
   deploy-mongo:
