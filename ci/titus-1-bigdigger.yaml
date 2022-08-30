@@ -105,7 +105,7 @@ spec:
     spec:
       containers:
         - name: titus-1-bigdipper
-          image: drewstaylor/bigdipper:1.0.0-archway
+          image: archwaynetwork/bigdipper:IMAGE_VERSION
           imagePullPolicy: Always
           ports:        
           - containerPort: 3000

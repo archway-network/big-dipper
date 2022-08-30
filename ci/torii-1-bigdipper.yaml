@@ -109,7 +109,7 @@ spec:
             configMapKeyRef:
               key: settings.json
               name: torii-1-bigdipper
-        image: drewstaylor/bigdipper:1.0.0-archway
+        image: archwaynetwork/bigdipper:IMAGE_VERSION
         imagePullPolicy: Always
         name: torii-1-bigdipper
         ports:
