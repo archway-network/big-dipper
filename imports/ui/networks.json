@@ -5,18 +5,13 @@
         "links": [
             {
                 "name": "Constantine",
-                "chain_id": "constantine-1",
-                "url": "https://explorer.constantine-1.archway.tech"
+                "chain_id": "constantine-2",
+                "url": "https://explorer.constantine-2.archway.tech"
             },
             {
                 "name": "Titus",
                 "chain_id": "titus-1",
                 "url": "https://explorer.titus-1.archway.tech"
-            },
-            {
-                "name": "Torii",
-                "chain_id": "torii-1",
-                "url": "https://explorer.torii-1.archway.tech"
             }
         ]
     }

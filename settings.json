@@ -1,7 +1,7 @@
 {
   "public":{
     "chainName": "archway",
-    "chainId": "constantine-1",
+    "chainId": "constantine-2",
     "gtm": "notsure",
     "slashingWindow": 10000,
     "uptimeWindow": 250,
@@ -40,8 +40,8 @@
     "banners": false
   },
   "remote":{
-    "rpc":"https://rpc.constantine-1.archway.tech:443",
-    "api":"https://api.constantine-1.archway.tech:443"
+    "rpc":"https://rpc.constantine-2.archway.tech:443",
+    "api":"https://api.constantine-2.archway.tech:443"
   },
   "debug": {
     "startTimer": true

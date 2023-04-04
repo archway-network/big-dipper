@@ -7,7 +7,7 @@ data:
     {
         "public":{
             "chainName": "archway",
-            "chainId": "constantine-1",
+            "chainId": "constantine-2",
             "slashingWindow": 10000,
             "uptimeWindow": 250,
             "initialPageSize": 30,
@@ -45,8 +45,8 @@ data:
             "banners": false
         },
         "remote":{
-            "rpc":"https://rpc.constantine-1.archway.tech:443",
-            "api":"https://api.constantine-1.archway.tech:443"
+            "rpc":"https://rpc.constantine-2.archway.tech:443",
+            "api":"https://api.constantine-2.archway.tech:443"
         },
         "debug": {
             "startTimer": true
@@ -88,7 +88,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: ROOT_URL
-              value: https://rpc.constantine-1.archway.tech
+              value: https://rpc.constantine-2.archway.tech
             - name: MONGO_URL
               value: mongodb://mongo:27017/meteor
             - name: PORT
